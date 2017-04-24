@@ -3,10 +3,16 @@
 "
 " Author:    Oleg 'Sovetnik' Siniuk
 " URL:       https://github.com/sovetnik/vim-hanami
-" Version:   0.1.1
+" Version:   0.1.2
 " Copyright: Copyright (c) 2017 Oleg Siniuk
 " License:   MIT
 " -----------------------------------------------------
+
+set swb=useopen
+
+if !exists('g:hanami_open_strategy')
+  let g:hanami_open_strategy = 'split'
+endif
 
 " Path patterns
 let s:pattern_entity =  'lib/.*/entities/.*\.rb'
@@ -29,19 +35,28 @@ fu! s:SplitToggle(way)
   else
     if a:way =~ 'repo'
       if filereadable(s:HanamiEntityRepoToggle(path))
-        exec 'split' . s:HanamiEntityRepoToggle(path)
+        return s:SmartOpen(s:HanamiEntityRepoToggle(path))
       else
         echom 'No file for Repo toggle'
       endif
     elseif a:way =~ 'spec'
       if filereadable(s:HanamiLibSpecToggle(path))
-        exec 'split' . s:HanamiLibSpecToggle(path)
+        return s:SmartOpen( s:HanamiLibSpecToggle(path))
       else
         echom 'No file for Spec toggle'
       endif
     endif
   endif
 endfunction
+
+fu! s:SmartOpen(target_path)
+  let bufnr = bufnr(a:target_path)
+  if bufnr == -1
+    exec g:hanami_open_strategy . a:target_path
+  else
+    exec 'sbuffer' . bufnr
+  endif
+endfu
 
 " ensures if file in hanami lib or spec folder
 " and try read .hanamirc in project root

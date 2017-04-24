@@ -41,6 +41,14 @@ This command mapped to `<Leader>s` adds or removes spec related parts from path 
 <img src="./images/er.jpg" />
 <img src="./images/re.jpg" />
 
+## Settins
+
+In your `~/.vimrc` or `~/.config/nvim/init.vim` add this statement to change open strategy:
+```vim
+let g:hanami_open_strategy = 'vsplit'
+```
+Default strategy is `split`.
+
 ## Next features(planned)
 
 - navigation in app folder
