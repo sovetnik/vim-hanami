@@ -1,6 +1,7 @@
 # vim-hanami
 
-Hanami support plugin for vim that gives you faster navigation between semantically associated files, like Entity -> Repository or Spec -> Entity.
+Hanami support plugin for vim that gives you faster navigation between semantically 
+associated files, like Action <-> View, Entity -> Repository or Spec -> Entity.
 
 ## Installation
 
@@ -14,34 +15,51 @@ Plug 'sovetnik/vim-hanami'
 The plugin registers `<Leader>s`(SpecToggle) and `<Leader>x`(RepoToggle) in normal mode for toggle files.
 
 Some public commands:
-`:HanamiRepoToggle` toggles between entity and repo.
+`:HanamiAlterToggle` toggles between entity and repo.
 `:HanamiSpecToggle` toggles between lib and spec.
 `:HanamiProject` returnes project name from `.hanamirc`
+`:HanamiTemplate` returnes template engine from `.hanamirc`
 
 ## Toggles
 
-Assume we have generated a hanami entity.
+Assume we have generated a hanami entity or action.
 
-Suppose you run 'hanami g model fnord' and get files:
+Suppose you run `hanami g model fnord` and get files:
 - `lib/bookshelf/entities/fnord.rb`
 - `lib/bookshelf/repositories/fnord_repository.rb`
 - `spec/bookshelf/entities/fnord_spec.rb`
 - `spec/bookshelf/repositories/fnord_repository_spec.rb`
+<img src="./images/quad_lib.jpg" />
 
-Toggle command simply splits window with toggled file.
-<img src="./images/quad.jpg" />
+Or we run `hanami generate action web foobar#show` and get:
+- `spec/web/controllers/foobar/show_spec.rb`
+- `apps/web/controllers/foobar/show.rb`
+- `apps/web/views/foobar/show.rb`
+- `apps/web/templates/foobar/show.html.erb`
+- `spec/web/views/foobar/show_spec.rb`
+<img src="./images/quad_app.jpg" />
 
-### RepoToggle
-This command mapped to `<Leader>x` adds or removes repo related parts from path of current buffer file.
+Toggle command simply splits window with alter or spec file.
+
+### AlterToggle
+This command mapped to `<Leader>x` 
+From buffer with Action, View or its specs toggles between them, Action <-> View.  
+<img src="./images/av.jpg" />
+<img src="./images/va.jpg" />
+
+From buffer with Entity, Repository or its specs toggles between them, Entity <-> Repo.
 <img src="./images/er.jpg" />
 <img src="./images/re.jpg" />
 
 ### SpecToggle
-This command mapped to `<Leader>s` adds or removes spec related parts from path of current buffer file.
-<img src="./images/er.jpg" />
-<img src="./images/re.jpg" />
+This command mapped to `<Leader>s` 
+From Action, Entity, Repository and View toggles between them and their specs. 
+<img src="./images/as.jpg" />
+<img src="./images/ls.jpg" />
+<img src="./images/sa.jpg" />
+<img src="./images/sl.jpg" />
 
-## Settins
+## Settings
 
 In your `~/.vimrc` or `~/.config/nvim/init.vim` add this statement to change open strategy:
 ```vim
