@@ -8,6 +8,14 @@
 " License:   MIT
 " -----------------------------------------------------
 
+nmap <Leader>x :HanamiAlterToggle<CR>
+nmap <Leader>s :HanamiSpecToggle<CR>
+
+command! HanamiAlterToggle :call <SID>SplitToggle('alter')
+command! HanamiSpecToggle :call <SID>SplitToggle('spec')
+command! HanamiProject :call <SID>HanamiGetProject()
+command! HanamiTemplate :call <SID>HanamiGetTemplate()
+
 set swb=useopen
 
 if !exists('g:hanami_open_strategy')
@@ -22,17 +30,11 @@ let s:pattern_view_spec = 'spec/.*/views/.*_spec.rb'
 
 " Lib patterns
 let s:pattern_entity =  'lib/.*/entities/.*\.rb'
+let s:pattern_interactor =  'lib/.*/interactors/.*\.rb'
 let s:pattern_repo = 'lib/.*/repositories/.*_repository.rb'
 let s:pattern_entity_spec = 'spec/.*/entities/.*_spec.rb'
+let s:pattern_interactor_spec = 'spec/.*/interactors/.*_spec.rb'
 let s:pattern_repo_spec = 'spec/.*/repositories/.*_repository_spec.rb'
-
-nmap <Leader>x :HanamiAlterToggle<CR>
-nmap <Leader>s :HanamiSpecToggle<CR>
-
-command! HanamiAlterToggle :call <SID>SplitToggle('alter')
-command! HanamiSpecToggle :call <SID>SplitToggle('spec')
-command! HanamiProject :call <SID>HanamiGetProject()
-command! HanamiTemplate :call <SID>HanamiGetTemplate()
 
 " opens a new window or warns that no hanami file
 fu! s:SplitToggle(way)
@@ -107,9 +109,9 @@ endfunction
 " specification and vice versa.
 " ===============================================
 fu! s:HanamiSpecify(path)
- if a:path =~ s:pattern_repo_spec || a:path =~ s:pattern_entity_spec
+ if a:path =~ s:pattern_repo_spec || a:path =~ s:pattern_entity_spec || a:path =~ s:pattern_interactor_spec
     return s:PathSpecToLib(a:path)
-  elseif a:path =~ s:pattern_entity || a:path =~ s:pattern_repo
+  elseif a:path =~ s:pattern_entity || a:path =~ s:pattern_interactor || a:path =~ s:pattern_repo
     return s:PathLibToSpec(a:path)
   elseif a:path =~ s:pattern_action || a:path =~ s:pattern_view
     return s:PathAppToSpec(a:path)
