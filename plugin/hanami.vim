@@ -30,11 +30,11 @@ let s:pattern_view_spec = 'spec/.*/views/.*_spec.rb'
 
 " Lib patterns
 let s:pattern_entity =  'lib/.*/entities/.*\.rb'
-let s:pattern_interactor =  'lib/.*/interactors/.*\.rb'
 let s:pattern_repo = 'lib/.*/repositories/.*_repository.rb'
+let s:pattern_lib = 'lib/.*\.rb'
 let s:pattern_entity_spec = 'spec/.*/entities/.*_spec.rb'
-let s:pattern_interactor_spec = 'spec/.*/interactors/.*_spec.rb'
 let s:pattern_repo_spec = 'spec/.*/repositories/.*_repository_spec.rb'
+let s:pattern_spec = 'spec/.*_spec.rb'
 
 " opens a new window or warns that no hanami file
 fu! s:SplitToggle(way)
@@ -109,9 +109,9 @@ endfunction
 " specification and vice versa.
 " ===============================================
 fu! s:HanamiSpecify(path)
- if a:path =~ s:pattern_repo_spec || a:path =~ s:pattern_entity_spec || a:path =~ s:pattern_interactor_spec
+ if a:path =~ s:pattern_repo_spec || a:path =~ s:pattern_spec
     return s:PathSpecToLib(a:path)
-  elseif a:path =~ s:pattern_entity || a:path =~ s:pattern_interactor || a:path =~ s:pattern_repo
+  elseif a:path =~ s:pattern_repo || a:path =~ s:pattern_lib
     return s:PathLibToSpec(a:path)
   elseif a:path =~ s:pattern_action || a:path =~ s:pattern_view
     return s:PathAppToSpec(a:path)
