@@ -109,14 +109,14 @@ endfunction
 " specification and vice versa.
 " ===============================================
 fu! s:HanamiSpecify(path)
- if a:path =~ s:pattern_repo_spec || a:path =~ s:pattern_spec
-    return s:PathSpecToLib(a:path)
-  elseif a:path =~ s:pattern_repo || a:path =~ s:pattern_lib
-    return s:PathLibToSpec(a:path)
-  elseif a:path =~ s:pattern_action || a:path =~ s:pattern_view
+  if a:path =~ s:pattern_action || a:path =~ s:pattern_view
     return s:PathAppToSpec(a:path)
   elseif a:path =~ s:pattern_action_spec || a:path =~ s:pattern_view_spec
     return s:PathSpecToApp(a:path)
+  elseif a:path =~ s:pattern_repo_spec || a:path =~ s:pattern_spec
+    return s:PathSpecToLib(a:path)
+  elseif a:path =~ s:pattern_repo || a:path =~ s:pattern_lib
+    return s:PathLibToSpec(a:path)
   endif
 endfunction
 
