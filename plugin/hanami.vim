@@ -8,9 +8,13 @@
 " License:   MIT
 " -----------------------------------------------------
 
-if !exists('g:hanami_disable_key_maps')
-  nmap <Leader>x :HanamiAlterToggle<CR>
-  nmap <Leader>s :HanamiSpecToggle<CR>
+if !exists('g:hanami_map_keys')
+  let g:hanami_map_keys = 1
+endif
+
+if g:hanami_map_keys
+  nnoremap <Leader>x :HanamiAlterToggle<CR>
+  nnoremap <Leader>s :HanamiSpecToggle<CR>
 endif
 
 command! HanamiAlterToggle :call <SID>SplitToggle('alter')
