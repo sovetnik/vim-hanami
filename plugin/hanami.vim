@@ -8,8 +8,10 @@
 " License:   MIT
 " -----------------------------------------------------
 
-nmap <Leader>x :HanamiAlterToggle<CR>
-nmap <Leader>s :HanamiSpecToggle<CR>
+if !exists('g:hanami_disable_key_maps')
+  nmap <Leader>x :HanamiAlterToggle<CR>
+  nmap <Leader>s :HanamiSpecToggle<CR>
+endif
 
 command! HanamiAlterToggle :call <SID>SplitToggle('alter')
 command! HanamiSpecToggle :call <SID>SplitToggle('spec')
