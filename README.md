@@ -67,6 +67,12 @@ let g:hanami_open_strategy = 'vsplit'
 ```
 Default strategy is `split`.
 
+You can disable included mappings:
+```vim
+let g:hanami_map_keys = 0
+```
+By default mappings enabled.
+
 ## Next features(planned)
 
 - navigation in app folder
