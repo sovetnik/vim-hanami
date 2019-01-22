@@ -3,7 +3,7 @@
 "
 " Author:    Oleg 'Sovetnik' Siniuk
 " URL:       https://github.com/sovetnik/vim-hanami
-" Version:   0.2
+" Version:   0.3
 " Copyright: Copyright (c) 2017 Oleg Siniuk
 " License:   MIT
 " -----------------------------------------------------
@@ -45,9 +45,6 @@ let s:pattern_spec = 'spec/.*_spec.rb'
 " opens a new window or warns that no hanami file
 fu! s:SplitToggle(way)
   let path = expand('%:p')
-  if s:HanamiEnsure(path) =~ 0
-    echom 'There is not a Hanami file'
-  else
     if a:way =~ 'alter'
       if filereadable(s:HanamiAlternate(path))
         return s:SmartOpen(s:HanamiAlternate(path))
@@ -61,7 +58,6 @@ fu! s:SplitToggle(way)
         echom 'No file for Spec toggle'
       endif
     endif
-  endif
 endfunction
 
 fu! s:SmartOpen(target_path)
@@ -72,19 +68,6 @@ fu! s:SmartOpen(target_path)
     exec 'sbuffer' . bufnr
   endif
 endfu
-
-" ensures if file in hanami lib or spec folder
-" and try read .hanamirc in project root
-" returnes 1 or 0
-fu! s:HanamiEnsure(path)
-  if match(a:path, '/lib/') > -1
-    return filereadable(substitute(a:path, 'lib/.*', '.hanamirc', 'g'))
-  elseif match(a:path, '/apps/') > -1
-    return filereadable(substitute(a:path, 'apps/.*', '.hanamirc', 'g'))
-  elseif match(a:path, '/spec/') > -1
-    return filereadable(substitute(a:path, 'spec/.*', '.hanamirc', 'g'))
-  endif
-endfunction
 
 " ===============================================
 " Togglers

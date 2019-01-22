@@ -3,6 +3,8 @@
 Hanami support plugin for vim that gives you faster navigation between semantically 
 associated files, like Action <-> View, Entity -> Repository or Spec -> Entity.
 
+Spec <-> Entity association works if code lives in `lib` and specs in 'spec' directoties. 
+
 ## Installation
 
 Add this to your `.vimrc` or `nvim/init.vim`:
